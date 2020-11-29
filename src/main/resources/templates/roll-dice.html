@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>dice rollin'</title>
+</head>
+<body>
+<h1>Guess a number, 1-6:</h1>
+
+
+<form action="/roll-dice/{n}" method="get">
+    <a href="/roll-dice/1">1</a>
+    <a href="/roll-dice/2">2</a>
+    <a href="/roll-dice/3">3</a>
+    <a href="/roll-dice/4">4</a>
+    <a href="/roll-dice/5">5</a>
+    <a href="/roll-dice/6">6</a>
+</form>
+
+<h2>You guessed: <span th:text="${n}"></span></h2>
+<h3>The real number is: <span th:text="${num}"></span></h3>
+<h4 th:text="${rightOrWrong}"></h4>
+</body>
+</html>
