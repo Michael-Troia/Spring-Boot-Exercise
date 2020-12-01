@@ -15,10 +15,17 @@ public class Ad {
     @Column(nullable = false)
     private String description;
 
-    public Ad(){
+    //empty
+    public Ad(){ }
 
+    //todo CREATE
+    public Ad(String title, String description){
+        this.title = title;
+        this.description = description;
     }
 
+
+    //todo READ
     public Ad(long id, String title, String description){
         this.id = id;
         this.title = title;
@@ -28,3 +35,12 @@ public class Ad {
 
 
 //todo add a new user and put the credentials in application.properties
+//
+//      Equivalent to:
+//
+//    CREATE TABLE ads (
+//        id BIGINT NOT NULL AUTO_INCREMENT,
+//        title VARCHAR(100) NOT NULL,
+//    description VARCHAR(255) NOT NULL,
+//    PRIMARY KEY (id)
+//);
