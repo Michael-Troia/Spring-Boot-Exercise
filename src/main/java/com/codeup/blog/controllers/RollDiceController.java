@@ -18,9 +18,9 @@ public class RollDiceController {
 //        return "guess a number one through six.";
 //    }
 
-    @GetMapping("/roll-dice")
+    @GetMapping("/roll-dice")//url that will be accessed
     public String showJoinForm() {
-        return "roll-dice";
+        return "roll-dice";// reference to roll-dice.html template
     }
 
 //    @PostMapping("/dice-roll")
@@ -34,7 +34,7 @@ public class RollDiceController {
         num = randomize();
         model.addAttribute("n", n);
         model.addAttribute("num", num);
-
+//      model.addAttribute("Correct", n == num); todo also works as the below code to compare
         String message;
         if (n == num){
             message = "Correct";
