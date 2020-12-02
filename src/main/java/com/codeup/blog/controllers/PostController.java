@@ -44,10 +44,12 @@ public class PostController{
         return "posts/show";
     }
 
+    //shows posts/new.html when visiting posts/create
     @GetMapping("/posts/create")
     public String showCreateForm(){
         return "posts/new";
     }
+
 
     @PostMapping("/posts/create")
     public String submitPost(
@@ -58,6 +60,33 @@ public class PostController{
         post = postDao.save(post);
         return "posts/index";
     }
+
+    //view edit form
+    @GetMapping("/posts/{id}/edit")
+    public String showEditForm(@PathVariable long id, Model viewModel){
+        viewModel.addAttribute("post", postDao.getOne(id));
+        return "posts/edit";
+    }
+
+
+    //when the edit form is sent
+    @PostMapping("/posts/{id}/edit")
+//    @ResponseBody
+    public String submitEdit(
+            @PathVariable long id, // is passed in from the PostMapping URL
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "body") String body
+    ){
+        Post dbPost = postDao.getOne(id);
+        dbPost.setTitle(title);
+        dbPost.setBody(body);
+        postDao.save(dbPost); //built-in thymeleaf
+
+        return "redirect:/posts/" + dbPost.getId();
+    }
+
+
+
 
 //    public interface AdRepository extends JpaRepository<Post, Long> {
 //        Post findByTitle(String title); // select * from ads where title = ?
