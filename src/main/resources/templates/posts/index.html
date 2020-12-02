@@ -11,8 +11,22 @@
 
 <main class="container">
     <div class="card" th:each="post: ${posts}">
+<!--        display post info-->
         <h3 class="text-center" th:text="${post.title}"></h3>
         <p th:text="${post.body}"></p>
+
+<!--        view button-->
+        <form th:action="@{/posts/{id}(id=${post.id})}" th:method="get">
+            <button class="btn btn-primary">View Post</button>
+        </form>
+<!--        edit button-->
+        <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="get">
+            <button class="btn btn-success">Edit Post</button>
+        </form>
+<!--        delete button-->
+        <form th:action="@{/posts/{id}/delete(id=${post.id})}" th:method="post"> <!--//also post.getId() from Post class would work-->
+            <button class="btn btn-danger">Delete Post</button>
+        </form>
     </div>
 </main>
 

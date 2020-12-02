@@ -14,8 +14,12 @@
         Body:
         <input name="body" th:value="${post.body}"/>
         <br />
-        <input type="submit" />
+        <input class="btn btn-success" type="submit"/>
     </form>
+    <form th:action="@{/posts/{id}/delete(id=${post.id})}" th:method="post"> <!--//also post.getId() from Post class would work-->
+        <button class="btn btn-danger">Delete</button>
+    </form>
+<!--    <a href="/posts/1/delete"></a>//bad-->
 
 </main>
 

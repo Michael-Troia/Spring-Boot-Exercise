@@ -58,7 +58,7 @@ public class PostController{
     ){
         Post post = new Post(title, body);
         post = postDao.save(post);
-        return "posts/index";
+        return "redirect:/posts";
     }
 
     //view edit form
@@ -85,6 +85,11 @@ public class PostController{
         return "redirect:/posts/" + dbPost.getId();
     }
 
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id){
+        postDao.deleteById(id);
+        return "redirect:/posts";
+    }
 
 
 
