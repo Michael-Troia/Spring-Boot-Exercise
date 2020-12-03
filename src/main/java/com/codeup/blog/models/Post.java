@@ -17,21 +17,26 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
+    @OneToOne
+    private User owner;
+
     //EMPTY
     public Post() {
     }
 
 //    CREATE
-    public Post(String title, String body) {
+    public Post(String title, String body, User owner) {
         this.title = title;
         this.body = body;
+        this.owner = owner;
     }
 
 //    READ
-    public Post(long id, String title, String body){
+    public Post(long id, String title, String body, User owner){
         this.title = title;
         this.body = body;
         this.id = id;
+        this.owner = owner;
     }
 
     public String getTitle() {
@@ -51,4 +56,14 @@ public class Post {
     }
 
     public long getId() { return id; }
+
+    public User getOwner(){
+        return this.owner;
+    }
+
+    public void setOwner(User owner){
+        this.owner = owner;
+    }
+
+
 }

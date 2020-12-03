@@ -1,21 +1,24 @@
 package com.codeup.blog.controllers;
 
 import com.codeup.blog.models.Post;
+import com.codeup.blog.models.User;
 import com.codeup.blog.repos.PostRepository;
+import com.codeup.blog.repos.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 @Controller
 public class PostController{
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postDao) {
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
+
 
 //    @GetMapping("/posts")
 //    public String index(Model model) {
@@ -55,9 +58,15 @@ public class PostController{
     public String submitPost(
         @RequestParam(name = "title") String title,
         @RequestParam(name = "body") String body
+//        @RequestParam(name = "username") String username
     ){
-        Post post = new Post(title, body);
-        post = postDao.save(post);
+//        User owner1 = new User("mike@gmail.com","mike", "test123");
+        User user = userDao.getOne(1L);
+        Post post = new Post();
+        post.setBody(body);
+        post.setTitle(title);
+        post.setOwner(user);
+        postDao.save(post);
         return "redirect:/posts";
     }
 
