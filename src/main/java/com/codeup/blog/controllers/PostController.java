@@ -83,19 +83,17 @@ public class PostController{
     @PostMapping("/posts/{id}/edit")
 //    @ResponseBody
     public String submitEdit(@ModelAttribute Post postToBeUpdated,
-            @PathVariable long id // is passed in from the PostMapping URL
+            @PathVariable long id// is passed in from the PostMapping URL
 //            @RequestParam(name = "title") String title,
 //            @RequestParam(name = "body") String body
     ){
-//        dbPost = postDao.getOne(id);
-//        dbPost.setTitle(title);
-//        dbPost.setBody(body);
-
         postToBeUpdated.setOwner(userDao.getOne(1L));//todo needs to be dynamically set
+        postToBeUpdated.setId(id);
         postDao.save(postToBeUpdated); //built-in thymeleaf
 
         return "redirect:/posts/" + postToBeUpdated.getId();
     }
+
 
     @PostMapping("/posts/{id}/delete")
     public String deletePost(@PathVariable long id){
