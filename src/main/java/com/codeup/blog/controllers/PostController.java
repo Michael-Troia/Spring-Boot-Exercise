@@ -49,22 +49,23 @@ public class PostController{
 
     //shows posts/new.html when visiting posts/create
     @GetMapping("/posts/create")
-    public String showCreateForm(){
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/new";
     }
 
 
     @PostMapping("/posts/create")
-    public String submitPost(
-        @RequestParam(name = "title") String title,
-        @RequestParam(name = "body") String body
-//        @RequestParam(name = "username") String username
+    public String submitPost(@ModelAttribute Post post
+//        @RequestParam(name = "title") String title,
+//        @RequestParam(name = "body") String body
     ){
 //        User owner1 = new User("mike@gmail.com","mike", "test123");
-        User user = userDao.getOne(1L);
-        Post post = new Post();
-        post.setBody(body);
-        post.setTitle(title);
+        User user = userDao.getOne(1L);//todo needs to be dynamically set
+//        Post post = new Post();
+//        post.setBody(body);
+//        post.setTitle(title);
+//        post.setOwner(user);
         post.setOwner(user);
         postDao.save(post);
         return "redirect:/posts";
@@ -81,14 +82,16 @@ public class PostController{
     //when the edit form is sent
     @PostMapping("/posts/{id}/edit")
 //    @ResponseBody
-    public String submitEdit(
+    public String submitEdit(@ModelAttribute Post dbPost,
             @PathVariable long id, // is passed in from the PostMapping URL
             @RequestParam(name = "title") String title,
             @RequestParam(name = "body") String body
     ){
-        Post dbPost = postDao.getOne(id);
+        dbPost = postDao.getOne(id);
         dbPost.setTitle(title);
         dbPost.setBody(body);
+
+        dbPost.setOwner(userDao.getOne(1L));//todo needs to be dynamically set
         postDao.save(dbPost); //built-in thymeleaf
 
         return "redirect:/posts/" + dbPost.getId();

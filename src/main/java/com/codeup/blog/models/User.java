@@ -18,11 +18,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-
-
     public User(){
 
     }
+
+    public String getEmail(){
+        return this.email;
+    }
+
 //todo the above is equal to the following SQL
 
 //    CREATE TABLE ads (
