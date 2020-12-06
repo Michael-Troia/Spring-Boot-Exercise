@@ -27,7 +27,6 @@ public class User {
     }
 
 //todo the above is equal to the following SQL
-
 //    CREATE TABLE ads (
 //    id BIGINT NOT NULL AUTO_INCREMENT,
 //    title VARCHAR(255) NOT NULL,

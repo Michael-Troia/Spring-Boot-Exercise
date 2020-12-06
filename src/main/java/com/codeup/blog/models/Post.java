@@ -39,6 +39,7 @@ public class Post {
         this.owner = owner;
     }
 
+
     public String getTitle() {
         return title;
     }
@@ -68,6 +69,5 @@ public class Post {
     public void setOwner(User owner){
         this.owner = owner;
     }
-
 
 }
