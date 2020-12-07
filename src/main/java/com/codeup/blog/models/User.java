@@ -1,6 +1,7 @@
 package com.codeup.blog.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity //makes it into SQL compatible with JPA
 @Table(name = "users")
@@ -18,14 +19,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    public User(){
+    public User(){ }
 
+    public User(User copy){
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
     }
-
-    public String getEmail(){
-        return this.email;
-    }
-
 //todo the above is equal to the following SQL
 //    CREATE TABLE ads (
 //    id BIGINT NOT NULL AUTO_INCREMENT,
@@ -50,4 +51,16 @@ public class User {
         this.password = password;
         this.username = username;
     }
+
+    public String getEmail(){
+        return this.email;
+    }
+    public String getUsername() { return username; }
+    public void setUsername (String username) { this.username = username; }
+    public void setEmail(String email) {  this.email = email; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+//    public List<Post> getPosts(){ return posts; }
 }

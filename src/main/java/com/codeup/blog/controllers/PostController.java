@@ -4,20 +4,32 @@ import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
 import com.codeup.blog.repos.PostRepository;
 import com.codeup.blog.repos.UserRepository;
+import com.codeup.blog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+//    User SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    public PostController(EmailService emailService, PostRepository postDao, UserRepository userDao) {
+        this.emailService = emailService;
         this.postDao = postDao;
         this.userDao = userDao;
     }
+//    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
+//        this.postDao = postDao;
+//        this.userDao = userDao;
+//        this.emailService = emailService;
+//    }
 
     //gets all the posts and puts it on the /posts page
     @GetMapping("/posts")
@@ -43,12 +55,12 @@ public class PostController {
 
 
     @PostMapping("/posts/create")
-    public String submitPost(@ModelAttribute Post post
-
-    ) {
+    public String submitPost(@ModelAttribute Post post) {
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getOne(1L);//todo needs to be dynamically set
         post.setOwner(user);
         postDao.save(post);
+        emailService.prepareAndSend(post,post.getTitle(),post.getBody());
         return "redirect:/posts";
     }
 
