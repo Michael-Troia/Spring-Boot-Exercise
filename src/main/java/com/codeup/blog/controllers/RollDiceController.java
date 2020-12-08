@@ -12,22 +12,12 @@ public class RollDiceController {
         return (int)(Math.random()*(6-1+1)+1);
     }
 
-//    @RequestMapping("/roll-dice")
-//    @ResponseBody
-//    public String diceRoll(){
-//        return "guess a number one through six.";
-//    }
+
 
     @GetMapping("/roll-dice")//url that will be accessed
     public String showJoinForm() {
         return "roll-dice";// reference to roll-dice.html template
     }
-
-//    @PostMapping("/dice-roll")
-//    public String joinCohort(@RequestParam(name = "cohort") String cohort, Model model) {
-//        model.addAttribute("cohort", "Welcome to " + cohort + "!");
-//        return "join";
-//    }
 
     @GetMapping("/roll-dice/{n}")
     public String sayHello(@PathVariable int n,Model model) {
