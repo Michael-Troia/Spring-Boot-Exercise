@@ -5,7 +5,7 @@ import com.codeup.blog.models.User;
 import com.codeup.blog.repos.PostRepository;
 import com.codeup.blog.repos.UserRepository;
 import com.codeup.blog.services.EmailService;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +56,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String submitPost(@ModelAttribute Post post) {
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getOne(1L);//todo needs to be dynamically set
         post.setOwner(user);
         postDao.save(post);
